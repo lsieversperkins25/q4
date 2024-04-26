@@ -37,21 +37,125 @@ while more_rectangles == True:
             color = 'green3'
         if row == 21:
             more_rectangles = False
-replicate_list = [thing for thing in list_of_rectangles]
+            
+M = 20
+N = 24 
+num_bombs = 99 
+mega_list = [] 
+for m in range(M):
+    mega_list.append([])
+    for n in range(N):
+        mega_list[m].append(0)
 bombs = 1
-list_bombs = []
 while bombs < 100:
-    explosive = random.randint(0, 479)
-    if explosive not in list_bombs:
-        list_bombs.append(explosive)
-        bombs+=1
-for values in replicate_list:
-    values = 0
-for stuff in list_bombs:
-    replicate_list[stuff] = -1
+    row = random.randint(0,M)
+    col = random.randint(0,N) 
+    if mega_list[row][col] >= 0: 
+        mega_list[row][col] = -1 
+        bombs += 1
+
+for rows in (0,20):
+    for columns in (0,24):
+        if mega_list[rows][columns] != -1:
+            if rows == 0 and columns == 0:
+                if mega_list[0][1] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[1][0] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[1][1] == -1:
+                    mega_list[rows][columns] += 1
+            while columns == 0 and 1 <= rows and rows <= 18:
+                if mega_list[rows-1][columns] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows-1][columns+1] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows][columns+1] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows+1][columns+1] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows+1][columns] == -1:
+                    mega_list[rows][columns] += 1
+            if rows == 19 and columns == 0:
+                if mega_list[18][0] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[18][1] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[19][1] == -1:
+                    mega_list[rows][columns] += 1
+            while rows == 19 and 1 <= columns and columns <= 22:
+                if mega_list[rows][columns-1] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows-1][columns-1] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows-1][columns] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows-1][columns+1] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows][columns+1] == -1:
+                    mega_list[rows][columns] += 1
+            if rows == 19 and columns == 23:
+                if mega_list[19][22] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[18][22] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[13][23] == -1:
+                    mega_list[rows][columns] += 1
+            while columns == 23 and 1 <= rows and rows <= 18:
+                if mega_list[rows-1][columns] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows-1][columns-1] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows][columns-1] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows+1][columns-1] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows+1][columns] == -1:
+                    mega_list[rows][columns] += 1
+            if rows == 0 and columns == 23:
+                if mega_list[1][23] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[1][22] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[0][22] == -1:
+                    mega_list[rows][columns] += 1
+            while rows == 0 and 1 <= columns and columns <= 22:
+                if mega_list[rows][columns-1] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows+1][columns-1] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows+1][columns] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows+1][columns+1] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows][columns+1] == -1:
+                    mega_list[rows][columns] += 1
+            while 1 <= rows and rows <= 18 and 1 <= columns and columns <= 23:
+                if mega_list[rows][columns-1] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows-1][columns-1] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows-1][columns] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows-1][columns+1] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows][columns+1] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows+1][columns-1] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows+1][columns] == -1:
+                    mega_list[rows][columns] += 1
+                if mega_list[rows+1][columns+1] == -1:
+                    mega_list[rows][columns] += 1
+
+
+                    
 
 
 
+
+
+
+        
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
