@@ -48,113 +48,34 @@ for m in range(M):
         mega_list[m].append(0)
 bombs = 1
 while bombs < 100:
-    row = random.randint(0,M)
-    col = random.randint(0,N) 
+    row = random.randint(0,M-1)
+    col = random.randint(0,N-1) 
     if mega_list[row][col] >= 0: 
         mega_list[row][col] = -1 
         bombs += 1
 
-for rows in (0,20):
-    for columns in (0,24):
+for rows in range(20):
+    for columns in range(24):
         if mega_list[rows][columns] != -1:
-            if rows == 0 and columns == 0:
-                if mega_list[0][1] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[1][0] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[1][1] == -1:
-                    mega_list[rows][columns] += 1
-            while columns == 0 and 1 <= rows and rows <= 18:
-                if mega_list[rows-1][columns] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows-1][columns+1] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows][columns+1] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows+1][columns+1] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows+1][columns] == -1:
-                    mega_list[rows][columns] += 1
-            if rows == 19 and columns == 0:
-                if mega_list[18][0] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[18][1] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[19][1] == -1:
-                    mega_list[rows][columns] += 1
-            while rows == 19 and 1 <= columns and columns <= 22:
-                if mega_list[rows][columns-1] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows-1][columns-1] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows-1][columns] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows-1][columns+1] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows][columns+1] == -1:
-                    mega_list[rows][columns] += 1
-            if rows == 19 and columns == 23:
-                if mega_list[19][22] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[18][22] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[13][23] == -1:
-                    mega_list[rows][columns] += 1
-            while columns == 23 and 1 <= rows and rows <= 18:
-                if mega_list[rows-1][columns] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows-1][columns-1] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows][columns-1] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows+1][columns-1] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows+1][columns] == -1:
-                    mega_list[rows][columns] += 1
-            if rows == 0 and columns == 23:
-                if mega_list[1][23] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[1][22] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[0][22] == -1:
-                    mega_list[rows][columns] += 1
-            while rows == 0 and 1 <= columns and columns <= 22:
-                if mega_list[rows][columns-1] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows+1][columns-1] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows+1][columns] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows+1][columns+1] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows][columns+1] == -1:
-                    mega_list[rows][columns] += 1
-            while 1 <= rows and rows <= 18 and 1 <= columns and columns <= 23:
-                if mega_list[rows][columns-1] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows-1][columns-1] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows-1][columns] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows-1][columns+1] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows][columns+1] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows+1][columns-1] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows+1][columns] == -1:
-                    mega_list[rows][columns] += 1
-                if mega_list[rows+1][columns+1] == -1:
-                    mega_list[rows][columns] += 1
+            total = 0
+            for r in range(-1,2):
+                for c in range(-1,2):
+                    if not( r == 0 and c == 0):
+                        if rows + r >= 0 and 19 >= rows + r and columns + c >= 0 and 23 >= columns + c:
+                            if mega_list[rows +r][columns + c] == -1:
+                                total += 1
+            mega_list[rows][columns] = total
+                        
+mega_list2 = []
+for a in range(20):
+    for b in range(24):
+        mega_list2.append(mega_list[a][b])
+double_list = []
 
-
-                    
-
-
-
-
-
-
+for q in range(480):
+    double_list.append([])
+    double_list[q].append(list_of_rectangles[q])
+    double_list[q].append(mega_list2[q])
         
 while running:
     # poll for events
@@ -162,8 +83,17 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type == pygame.MOUSEBUTTONUP:
             mouse = pygame.mouse.get_pos()
+            for check in range(480):
+                if double_list[check][0].collidepoint(mouse):
+                    if double_list[check][1] == -1:
+                        bomb = pygame.image.load('bomb-pixel-art')
+                        change_bomb = pygame.transform.scale(bomb, (30, 30))
+                        screen.blit(change_bomb, double_list[check][1].x, double_list[check][1].y)
+                        
+                    
+# bomb png background rgb color rgb(243, 246, 255)
             
             
 
