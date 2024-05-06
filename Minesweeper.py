@@ -76,10 +76,59 @@ for q in range(480):
     double_list.append([])
     double_list[q].append(list_of_rectangles[q])
     double_list[q].append(mega_list2[q])
-        
+    double_list[q].append(True)
+
+bomb = pygame.image.load('bomb-pixel-art.png')
+change_bomb = pygame.transform.scale(bomb, (30, 30))
+font = pygame.font.SysFont('Arial', 200, bold = True)
+
+
+game_over = False
+game_over1 = False
+game_over2 = False
+game_over3 = False
+game_over4 = False
+game_over_for_real = False
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
+    if game_over_for_real:
+        pygame.time.delay(7500)
+        running = False
+    if game_over4:
+        pygame.time.delay(500)
+        you_lose = font.render('Game Over', True, 'red')
+        screen.blit(you_lose, (75, 200))
+        game_over4 = False
+        game_over_for_real = True
+    if game_over3:
+        pygame.time.delay(500)
+        for lose in range(360,480):
+            if double_list[lose][1] == -1:
+                screen.blit(change_bomb, (double_list[lose][0].x, double_list[lose][0].y) )
+        game_over3 = False
+        game_over4 = True
+    if game_over2:
+        pygame.time.delay(500)
+        for lose in range(240,360):
+            if double_list[lose][1] == -1:
+                screen.blit(change_bomb, (double_list[lose][0].x, double_list[lose][0].y) )
+        game_over2 = False
+        game_over3 = True
+    if game_over1:
+        pygame.time.delay(500)
+        for lose in range(120,240):
+            if double_list[lose][1] == -1:
+                screen.blit(change_bomb, (double_list[lose][0].x, double_list[lose][0].y) )
+        game_over1 = False
+        game_over2 = True
+    if game_over:
+        pygame.time.delay(500)
+        for lose in range(120):
+            if double_list[lose][1] == -1:
+                screen.blit(change_bomb, (double_list[lose][0].x, double_list[lose][0].y) )
+        game_over = False
+        game_over1 = True
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -88,9 +137,11 @@ while running:
             for check in range(480):
                 if double_list[check][0].collidepoint(mouse):
                     if double_list[check][1] == -1:
-                        bomb = pygame.image.load('bomb-pixel-art')
-                        change_bomb = pygame.transform.scale(bomb, (30, 30))
-                        screen.blit(change_bomb, double_list[check][1].x, double_list[check][1].y)
+                        screen.blit(change_bomb, (double_list[check][0].x, double_list[check][0].y) )
+                        game_over = True
+                    if double_list[check][1] == 1:
+                        
+                        
                         
                     
 # bomb png background rgb color rgb(243, 246, 255)
