@@ -13,7 +13,7 @@ more_rectangles = True
 row = 1
 column = 1
 color = 'green3'
-x1 = 250
+x1 = 450
 y1 = 50
 list_of_rectangles = []
 while more_rectangles == True:
@@ -29,7 +29,7 @@ while more_rectangles == True:
         list_of_rectangles.append( pygame.draw.rect(screen, color, [x1, y1, 30, 30]) )
         column = 1
         y1 += 30
-        x1 = 250
+        x1 = 450
         row += 1
         if color == 'green3':
             color = 'green2'
@@ -76,74 +76,60 @@ for q in range(480):
     double_list.append([])
     double_list[q].append(list_of_rectangles[q])
     double_list[q].append(mega_list2[q])
-    double_list[q].append(True)
+    if double_list[q][1] != -1:
+        double_list[q].append(True)
 
 bomb = pygame.image.load('bomb-pixel-art.png')
 change_bomb = pygame.transform.scale(bomb, (30, 30))
 font = pygame.font.SysFont('Arial', 200, bold = True)
 one = pygame.image.load('one.png')
-better_one = pygame.transform.scale(one, (30, 30))
+one = pygame.transform.scale(one, (30, 30))
 two = pygame.image.load('two.png')
-better_two = pygame.transform.scale(two, (30, 30))
+two = pygame.transform.scale(two, (30, 30))
 three = pygame.image.load('three.png')
-better_three = pygame.transform.scale(three, (30, 30))
+three = pygame.transform.scale(three, (30, 30))
 four = pygame.image.load('four.png')
-better_four = pygame.transform.scale(four, (30, 30))
+four = pygame.transform.scale(four, (30, 30))
 five = pygame.image.load('five.png')
-better_five = pygame.transform.scale(five, (30, 30))
+five = pygame.transform.scale(five, (30, 30))
 six = pygame.image.load('six.png')
-better_six = pygame.transform.scale(six, (30, 30))
+six = pygame.transform.scale(six, (30, 30))
 seven = pygame.image.load('seven.png')
-better_seven = pygame.transform.scale(seven, (30, 30))
+seven = pygame.transform.scale(seven, (30, 30))
 eight = pygame.image.load('eight.png')
-better_eight = pygame.transform.scale(eight, (30, 30))
+eight = pygame.transform.scale(eight, (30, 30))
+zero = pygame.image.load('zero.png')
+zero = pygame.transform.scale(zero, (30, 30))
+flag = pygame.image.load('flag-pixel-art.png')
+flag = pygame.transform.scale(flag, (30, 30))
 
 game_over = False
 game_over1 = False
-game_over2 = False
-game_over3 = False
-game_over4 = False
 game_over_for_real = False
+start = 0
+finish = 1
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
     if game_over_for_real:
-        pygame.time.delay(7500)
+        pygame.time.delay(6000)
         running = False
-    if game_over4:
+    if game_over1:
         pygame.time.delay(500)
         you_lose = font.render('Game Over', True, 'red')
         screen.blit(you_lose, (75, 200))
-        game_over4 = False
-        game_over_for_real = True
-    if game_over3:
-        pygame.time.delay(500)
-        for lose in range(360,480):
-            if double_list[lose][1] == -1:
-                screen.blit(change_bomb, (double_list[lose][0].x, double_list[lose][0].y) )
-        game_over3 = False
-        game_over4 = True
-    if game_over2:
-        pygame.time.delay(500)
-        for lose in range(240,360):
-            if double_list[lose][1] == -1:
-                screen.blit(change_bomb, (double_list[lose][0].x, double_list[lose][0].y) )
-        game_over2 = False
-        game_over3 = True
-    if game_over1:
-        pygame.time.delay(500)
-        for lose in range(120,240):
-            if double_list[lose][1] == -1:
-                screen.blit(change_bomb, (double_list[lose][0].x, double_list[lose][0].y) )
         game_over1 = False
-        game_over2 = True
+        game_over_for_real = True 
     if game_over:
-        pygame.time.delay(500)
-        for lose in range(120):
+        for lose in range(start, finish):
+            start += 1
+            finish += 1
             if double_list[lose][1] == -1:
+                pygame.time.delay(5)
                 screen.blit(change_bomb, (double_list[lose][0].x, double_list[lose][0].y) )
-        game_over = False
-        game_over1 = True
+            if lose == 479:
+                game_over1 = True
+                game_over = False
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -155,30 +141,24 @@ while running:
                         screen.blit(change_bomb, (double_list[check][0].x, double_list[check][0].y) )
                         game_over = True
                     if double_list[check][1] == 1:
-                        screen.blit(better_one, (double_list[check][0].x, double_list[check][0].y) )
+                        screen.blit(one, (double_list[check][0].x, double_list[check][0].y) )
                     if double_list[check][1] == 2:
-                        screen.blit(better_two, (double_list[check][0].x, double_list[check][0].y) )
+                        screen.blit(two, (double_list[check][0].x, double_list[check][0].y) )
                     if double_list[check][1] == 3:
-                        screen.blit(better_three, (double_list[check][0].x, double_list[check][0].y) )
+                        screen.blit(three, (double_list[check][0].x, double_list[check][0].y) )
                     if double_list[check][1] == 4:
-                        screen.blit(better_four, (double_list[check][0].x, double_list[check][0].y) )
+                        screen.blit(four, (double_list[check][0].x, double_list[check][0].y) )
                     if double_list[check][1] == 5:
-                        screen.blit(better_five, (double_list[check][0].x, double_list[check][0].y) )
+                        screen.blit(five, (double_list[check][0].x, double_list[check][0].y) )
                     if double_list[check][1] == 6:
-                        screen.blit(better_six, (double_list[check][0].x, double_list[check][0].y) )
+                        screen.blit(six, (double_list[check][0].x, double_list[check][0].y) )
                     if double_list[check][1] == 7:
-                        screen.blit(better_seven, (double_list[check][0].x, double_list[check][0].y) )
+                        screen.blit(seven, (double_list[check][0].x, double_list[check][0].y) )
                     if double_list[check][1] == 8:
-                        screen.blit(better_eight, (double_list[check][0].x, double_list[check][0].y) )
-                        
-                        
-                    
-# bomb png background rgb color rgb(243, 246, 255)
-            
-            
+                        screen.blit(eight, (double_list[check][0].x, double_list[check][0].y) )
+                    if double_list[check][1] == 0:
+                        screen.blit(zero, (double_list[check][0].x, double_list[check][0].y) )
 
-    
-                
     # flip() the display to put your work on screen
     pygame.display.flip()
 
