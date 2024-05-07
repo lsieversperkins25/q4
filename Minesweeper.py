@@ -81,7 +81,22 @@ for q in range(480):
 bomb = pygame.image.load('bomb-pixel-art.png')
 change_bomb = pygame.transform.scale(bomb, (30, 30))
 font = pygame.font.SysFont('Arial', 200, bold = True)
-
+one = pygame.image.load('one.png')
+better_one = pygame.transform.scale(one, (30, 30))
+two = pygame.image.load('two.png')
+better_two = pygame.transform.scale(two, (30, 30))
+three = pygame.image.load('three.png')
+better_three = pygame.transform.scale(three, (30, 30))
+four = pygame.image.load('four.png')
+better_four = pygame.transform.scale(four, (30, 30))
+five = pygame.image.load('five.png')
+better_five = pygame.transform.scale(five, (30, 30))
+six = pygame.image.load('six.png')
+better_six = pygame.transform.scale(six, (30, 30))
+seven = pygame.image.load('seven.png')
+better_seven = pygame.transform.scale(seven, (30, 30))
+eight = pygame.image.load('eight.png')
+better_eight = pygame.transform.scale(eight, (30, 30))
 
 game_over = False
 game_over1 = False
@@ -140,7 +155,21 @@ while running:
                         screen.blit(change_bomb, (double_list[check][0].x, double_list[check][0].y) )
                         game_over = True
                     if double_list[check][1] == 1:
-                        
+                        screen.blit(better_one, (double_list[check][0].x, double_list[check][0].y) )
+                    if double_list[check][1] == 2:
+                        screen.blit(better_two, (double_list[check][0].x, double_list[check][0].y) )
+                    if double_list[check][1] == 3:
+                        screen.blit(better_three, (double_list[check][0].x, double_list[check][0].y) )
+                    if double_list[check][1] == 4:
+                        screen.blit(better_four, (double_list[check][0].x, double_list[check][0].y) )
+                    if double_list[check][1] == 5:
+                        screen.blit(better_five, (double_list[check][0].x, double_list[check][0].y) )
+                    if double_list[check][1] == 6:
+                        screen.blit(better_six, (double_list[check][0].x, double_list[check][0].y) )
+                    if double_list[check][1] == 7:
+                        screen.blit(better_seven, (double_list[check][0].x, double_list[check][0].y) )
+                    if double_list[check][1] == 8:
+                        screen.blit(better_eight, (double_list[check][0].x, double_list[check][0].y) )
                         
                         
                     
