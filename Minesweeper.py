@@ -1,6 +1,7 @@
 # Example file showing a basic pygame "game loop"
 import random
 import pygame
+import math
 
 # pygame setup
 pygame.init()
@@ -37,7 +38,7 @@ while more_rectangles == True:
             color = 'green3'
         if row == 21:
             more_rectangles = False
-            
+           
 M = 20
 N = 24 
 num_bombs = 99 
@@ -78,6 +79,10 @@ for q in range(480):
     double_list[q].append(mega_list2[q])
     if double_list[q][1] != -1:
         double_list[q].append(True)
+    elif double_list[q][1] == -1:
+        double_list[q].append(False)
+    double_list[q].append(False)
+    double_list[q].append(True)
 
 bomb = pygame.image.load('bomb-pixel-art.png')
 change_bomb = pygame.transform.scale(bomb, (30, 30))
@@ -108,6 +113,7 @@ game_over1 = False
 game_over_for_real = False
 start = 0
 finish = 1
+flag_on = False
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
@@ -133,32 +139,71 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.MOUSEBUTTONUP:
+        if event.type == pygame.KEYDOWN and game_over == False:
+            if event.key == pygame.K_SPACE:
+                if flag_on == False:
+                    flag_on = True
+                else:
+                    flag_on = False
+        if event.type == pygame.MOUSEBUTTONUP and game_over == False:
             mouse = pygame.mouse.get_pos()
             for check in range(480):
                 if double_list[check][0].collidepoint(mouse):
-                    if double_list[check][1] == -1:
-                        screen.blit(change_bomb, (double_list[check][0].x, double_list[check][0].y) )
-                        game_over = True
-                    if double_list[check][1] == 1:
-                        screen.blit(one, (double_list[check][0].x, double_list[check][0].y) )
-                    if double_list[check][1] == 2:
-                        screen.blit(two, (double_list[check][0].x, double_list[check][0].y) )
-                    if double_list[check][1] == 3:
-                        screen.blit(three, (double_list[check][0].x, double_list[check][0].y) )
-                    if double_list[check][1] == 4:
-                        screen.blit(four, (double_list[check][0].x, double_list[check][0].y) )
-                    if double_list[check][1] == 5:
-                        screen.blit(five, (double_list[check][0].x, double_list[check][0].y) )
-                    if double_list[check][1] == 6:
-                        screen.blit(six, (double_list[check][0].x, double_list[check][0].y) )
-                    if double_list[check][1] == 7:
-                        screen.blit(seven, (double_list[check][0].x, double_list[check][0].y) )
-                    if double_list[check][1] == 8:
-                        screen.blit(eight, (double_list[check][0].x, double_list[check][0].y) )
-                    if double_list[check][1] == 0:
-                        screen.blit(zero, (double_list[check][0].x, double_list[check][0].y) )
-
+                    if flag_on == False and double_list[check][4] == True:
+                        if double_list[check][1] == -1:
+                            screen.blit(change_bomb, (double_list[check][0].x, double_list[check][0].y) )
+                            game_over = True
+                        if double_list[check][1] == 1:
+                            screen.blit(one, (double_list[check][0].x, double_list[check][0].y) )
+                            double_list[check][2] = False
+                            double_list[check][3] = True
+                        if double_list[check][1] == 2:
+                            screen.blit(two, (double_list[check][0].x, double_list[check][0].y) )
+                            double_list[check][2] = False
+                            double_list[check][3] = True
+                        if double_list[check][1] == 3:
+                            screen.blit(three, (double_list[check][0].x, double_list[check][0].y) )
+                            double_list[check][2] = False
+                            double_list[check][3] = True
+                        if double_list[check][1] == 4:
+                            screen.blit(four, (double_list[check][0].x, double_list[check][0].y) )
+                            double_list[check][2] = False
+                            double_list[check][3] = True
+                        if double_list[check][1] == 5:
+                            screen.blit(five, (double_list[check][0].x, double_list[check][0].y) )
+                            double_list[check][2] = False
+                            double_list[check][3] = True
+                        if double_list[check][1] == 6:
+                            screen.blit(six, (double_list[check][0].x, double_list[check][0].y) )
+                            double_list[check][2] = False
+                            double_list[check][3] = True
+                        if double_list[check][1] == 7:
+                            screen.blit(seven, (double_list[check][0].x, double_list[check][0].y) )
+                            double_list[check][2] = False
+                            double_list[check][3] = True
+                        if double_list[check][1] == 8:
+                            screen.blit(eight, (double_list[check][0].x, double_list[check][0].y) )
+                            double_list[check][2] = False
+                            double_list[check][3] = True
+                        if double_list[check][1] == 0:
+                            screen.blit(zero, (double_list[check][0].x, double_list[check][0].y) )
+                            double_list[check][2] = False
+                            double_list[check][3] = True
+                    elif flag_on == True:
+                        if double_list[check][3] == False:
+                            if double_list[check][4] == True:
+                                screen.blit(flag, (double_list[check][0].x, double_list[check][0].y) )
+                                double_list[check][4] = False
+                            else:
+                                double_list[check][0]
+                                if (math.floor(check / 24) + (check % 24)) % 2 == 0:
+                                    new_color = 'green2'
+                                elif (math.floor(check / 24) + (check % 24)) % 2 == 1:
+                                    new_color = 'green3'
+                                pygame.draw.rect(screen, new_color, [double_list[check][0].x, double_list[check][0].y, 30, 30])
+                                double_list[check][4] = True
+                                
+                            
     # flip() the display to put your work on screen
     pygame.display.flip()
 
