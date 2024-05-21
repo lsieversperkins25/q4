@@ -84,6 +84,12 @@ for q in range(480):
     double_list[q].append(False)
     double_list[q].append(True)
 
+instruction_font = pygame.font.SysFont('Arial', 35)
+instruction = instruction_font.render('Switch between modes', False, 'black')
+instruction1 = instruction_font.render('using the space bar', False, 'black')
+screen.blit(instruction, (50, 50))
+screen.blit(instruction1, (75, 90))
+
 bomb = pygame.image.load('bomb-pixel-art.png')
 change_bomb = pygame.transform.scale(bomb, (30, 30))
 font = pygame.font.SysFont('Arial', 200, bold = True)
@@ -106,7 +112,8 @@ eight = pygame.transform.scale(eight, (30, 30))
 zero = pygame.image.load('zero.png')
 zero = pygame.transform.scale(zero, (30, 30))
 flag = pygame.image.load('flag-pixel-art.png')
-flag = pygame.transform.scale(flag, (30, 30))
+flag1 = pygame.transform.scale(flag, (30, 30))
+click = pygame.image.load('mouse.png')
 
 game_over = False
 game_over1 = False
@@ -114,9 +121,14 @@ game_over_for_real = False
 start = 0
 finish = 1
 flag_on = False
+all_done = 0
+you_win = False
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
+    if you_win == True:
+        winner = font.render('You Win!', True, 'green')
+        screen.blit(winner, (75, 200))
     if game_over_for_real:
         pygame.time.delay(6000)
         running = False
@@ -192,7 +204,7 @@ while running:
                     elif flag_on == True:
                         if double_list[check][3] == False:
                             if double_list[check][4] == True:
-                                screen.blit(flag, (double_list[check][0].x, double_list[check][0].y) )
+                                screen.blit(flag1, (double_list[check][0].x, double_list[check][0].y) )
                                 double_list[check][4] = False
                             else:
                                 double_list[check][0]
@@ -202,6 +214,19 @@ while running:
                                     new_color = 'green3'
                                 pygame.draw.rect(screen, new_color, [double_list[check][0].x, double_list[check][0].y, 30, 30])
                                 double_list[check][4] = True
+                    for a in range(480):
+                        if double_list[a][2] == False:
+                            all_done += 1
+                    if all_done == 480:
+                       you_win = True
+                    elif all_done != 480:
+                        all_done = 0
+    if flag_on == False:
+       pygame.draw.rect(screen, 'PaleTurquoise', [125, 140, 218, 218])
+       screen.blit(click, (125, 150))
+    elif flag_on == True:
+        pygame.draw.rect(screen, 'PaleTurquoise', [125, 150, 150, 190])
+        screen.blit(flag, (125, 140))
                                 
                             
     # flip() the display to put your work on screen
