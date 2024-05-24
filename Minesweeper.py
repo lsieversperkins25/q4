@@ -221,10 +221,10 @@ while running:
                        you_win = True
                     elif all_done != 480:
                         all_done = 0
-    if flag_on == False:
+    if flag_on == False and game_over_for_real == False:
        pygame.draw.rect(screen, 'PaleTurquoise', [125, 140, 218, 218])
        screen.blit(click, (125, 150))
-    elif flag_on == True:
+    elif flag_on == True and game_over_for_real == False:
         pygame.draw.rect(screen, 'PaleTurquoise', [125, 150, 150, 190])
         screen.blit(flag, (125, 140))
                                 
