@@ -61,7 +61,7 @@ for rows in range(20):
             total = 0
             for r in range(-1,2):
                 for c in range(-1,2):
-                    if not( r == 0 and c == 0):
+                    if not(r == 0 and c == 0):
                         if rows + r >= 0 and 19 >= rows + r and columns + c >= 0 and 23 >= columns + c:
                             if mega_list[rows +r][columns + c] == -1:
                                 total += 1
@@ -161,7 +161,7 @@ while running:
             mouse = pygame.mouse.get_pos()
             for check in range(480):
                 if double_list[check][0].collidepoint(mouse):
-                    if flag_on == False and double_list[check][4] == True:
+                    if not flag_on and double_list[check][4]:
                         if double_list[check][1] == -1:
                             screen.blit(change_bomb, (double_list[check][0].x, double_list[check][0].y) )
                             game_over = True
@@ -201,6 +201,43 @@ while running:
                             screen.blit(zero, (double_list[check][0].x, double_list[check][0].y) )
                             double_list[check][2] = False
                             double_list[check][3] = True
+                            # We need to loop over the board 
+                            #   0 -> rectangle
+                            #   1 -> Number of bombs adjacent
+                            #   2 -> 
+                            #   3 -> Been clicked 
+                            zero_looping = True
+                            check_column = check % 24
+                            while(zero_looping):
+                                zero_looping = False 
+                                for index in range(480):
+                                    if double_list[index][1] == 0 and double_list[index][3]:
+                                        for i in [index-25,index-24,index-23,index-1,index+1,index+23,index+24,index+25]:
+                                            i_column = i % 24
+                                            if i>=0 and i<480:
+                                                if abs(check_column - i_column) == 1 or abs(check_column - i_column) == 0:
+                                                    if not double_list[i][3]:
+                                                        zero_looping = True                                             
+                                                        double_list[i][2] = False
+                                                        double_list[i][3] = True  
+                                                        if double_list[i][1] == 0:
+                                                            screen.blit(zero, (double_list[i][0].x, double_list[i][0].y) )
+                                                        if double_list[i][1] == 1:
+                                                            screen.blit(one, (double_list[i][0].x, double_list[i][0].y) )
+                                                        if double_list[i][1] == 2:
+                                                            screen.blit(two, (double_list[i][0].x, double_list[i][0].y) )
+                                                        if double_list[i][1] == 3:
+                                                            screen.blit(three, (double_list[i][0].x, double_list[i][0].y) )
+                                                        if double_list[i][1] == 4:
+                                                            screen.blit(four, (double_list[i][0].x, double_list[i][0].y) )
+                                                        if double_list[i][1] == 5:
+                                                            screen.blit(five, (double_list[i][0].x, double_list[i][0].y) )
+                                                        if double_list[i][1] == 6:
+                                                            screen.blit(six, (double_list[i][0].x, double_list[i][0].y) )
+                                                        if double_list[i][1] == 7:
+                                                            screen.blit(seven, (double_list[i][0].x, double_list[i][0].y) )
+                                                        if double_list[i][1] == 8:
+                                                            screen.blit(eight, (double_list[i][0].x, double_list[i][0].y) )
                     elif flag_on == True:
                         if double_list[check][3] == False:
                             if double_list[check][4] == True:
